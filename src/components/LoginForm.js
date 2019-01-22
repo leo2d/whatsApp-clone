@@ -9,9 +9,13 @@ export default props => {
                 <Text style={styles.title}>WhatsApp Clone</Text>
             </View>
             <View style={styles.inputsContainer}>
-                <TextInput style={styles.inputs} placeholder="E-mail" />
+                <TextInput style={styles.inputs} placeholder="E-mail" keyboardType="email-address" />
                 <TextInput style={styles.inputs} placeholder="Senha" secureTextEntry={true} />
-                <Text style={styles.joinLink}>Criar conta</Text>
+                <Text style={styles.link}
+                    onPress={() => props.navigation.navigate('SignUp')}
+                    >
+                    Criar conta
+                </Text>
             </View>
 
             <View style={styles.buttonContainer}>
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         height: 45,
     },
-    joinLink: {
+    link: {
         fontSize: 18,
         color: '#115E54'
     },

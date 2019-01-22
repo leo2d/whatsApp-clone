@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import LoginForm from './src/components/LoginForm';
+import Routes from './src/components/Routes';
 
 export default class App extends Component {
   render() {
     return (
-      <LoginForm />
+      <Routes />
     );
   }
 }
+
+// export default class App extends Component {
+//   render() {
+//     return (
+//       // <LoginForm />
+//       <SiginUpForm />
+//     );
+//   }
+// }
