@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
+import { connect } from 'react-redux';
 
 const SignUpForm = props => {
     return (
         <View style={styles.container}>
             <View style={styles.inputsContainer}>
-                <TextInput style={styles.inputs} placeholder="Nome" />
-                <TextInput style={styles.inputs} textContentType='emailAddress'
-                 placeholder="E-mail" keyboardType="email-address" />
-                <TextInput style={styles.inputs} textContentType='password'
-                placeholder="Senha" secureTextEntry={true} />
+                <TextInput value={props.name} style={styles.inputs} placeholder="Nome" />
+                <TextInput value={props.email} style={styles.inputs} textContentType='emailAddress'
+                    placeholder="E-mail" keyboardType="email-address" />
+                <TextInput value={props.password} style={styles.inputs} textContentType='password'
+                    placeholder="Senha" secureTextEntry={true} />
                 <Text style={styles.link}
                     onPress={() => props.navigation.goBack()}
                 >
@@ -17,14 +18,24 @@ const SignUpForm = props => {
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
-                <Button //containerStyle={{ flex: 1 }}
+                <Button
                     buttonStyle={styles.button} onPress={() => false} color='#115E54' title="Cadastrar" />
             </View>
         </View>
     );
 }
 
-export default SignUpForm;
+const mapStateToProps = state => {
+    return (
+        {
+            name: state.AutenticacaoReducer.name,
+            email: state.AutenticacaoReducer.email,
+            password: state.AutenticacaoReducer.password,
+        }
+    );
+};
+
+export default connect(mapStateToProps, null)(SignUpForm);
 
 const styles = StyleSheet.create({
     container: {

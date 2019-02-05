@@ -1,37 +1,41 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Button, StyleSheet } from 'react-native'
-// import { Button } from 'react-native-elements'
+import { connect } from 'react-redux';
+import { modifyEmail, modifyPassword } from '../actions/AutenticacaoActions';
 
-export default props => {
+const LoginForm = props => {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>WhatsApp Clone</Text>
             </View>
             <View style={styles.inputsContainer}>
-                <TextInput style={styles.inputs} placeholder="E-mail" keyboardType="email-address" />
-                <TextInput style={styles.inputs} placeholder="Senha" secureTextEntry={true} />
+                <TextInput value={props.email} style={styles.inputs} placeholder="E-mail" keyboardType="email-address" onChangeText={text => props.modifyEmail(text)} />
+                <TextInput value={props.password} style={styles.inputs} placeholder="Senha" secureTextEntry={true} onChangeText={text => props.modifyPassword(text)} />
                 <Text style={styles.link}
                     onPress={() => props.navigation.navigate('SignUp')}
-                    >
+                >
                     Criar conta
                 </Text>
             </View>
 
             <View style={styles.buttonContainer}>
-                <Button //containerStyle={{ flex: 1 }}
+                <Button
                     buttonStyle={styles.button} onPress={() => false} color='#115E54' title="Acessar" />
             </View>
-
-            {/* <TouchableOpacity onPress={() => false}>
-                <View style={styles.buttonContainer}>
-                    <Text>Acessar</Text>
-                </View>
-            </TouchableOpacity> */}
 
         </View>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        email: state.AutenticacaoReducer.email,
+        password: state.AutenticacaoReducer.password
+    };
+}
+
+export default connect(mapStateToProps, { modifyEmail, modifyPassword })(LoginForm);
 
 const styles = StyleSheet.create({
     container: {
