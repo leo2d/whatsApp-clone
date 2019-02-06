@@ -10,6 +10,12 @@ const modifyPassword = (text) => {
         payload: text
     }
 }
+const modifyName = (text) => {
+    return {
+        type: 'modify_name',
+        payload: text
+    }
+}
 
 
-export { modifyEmail, modifyPassword };
+export { modifyEmail, modifyPassword, modifyName };
