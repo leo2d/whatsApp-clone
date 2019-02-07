@@ -1,3 +1,6 @@
+import firebase from '@firebase/app'
+require('firebase/auth')
+
 const modifyEmail = (text) => {
     return {
         type: 'modify_email',
@@ -16,6 +19,16 @@ const modifyName = (text) => {
         payload: text
     }
 }
+const createUser = ({ name, email, password }) => {
 
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(user => console.log(user))
+        .then(error => console.log(error));
 
-export { modifyEmail, modifyPassword, modifyName };
+    return {
+        type: 'create_user',
+        payload: ''
+    };
+}
+
+export { modifyEmail, modifyPassword, modifyName, createUser };

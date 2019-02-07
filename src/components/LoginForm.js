@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         height: 45,
     },
     link: {
-        paddingBottom: 25,
+        paddingBottom: 5,
         fontSize: 18,
         color: '#ffffff'
     },

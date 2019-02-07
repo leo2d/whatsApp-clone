@@ -1,34 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, TextInput, ImageBackground, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import { modifyEmail, modifyPassword, modifyName } from '../actions/AutenticacaoActions';
+import { modifyEmail, modifyPassword, modifyName, createUser } from '../actions/AutenticacaoActions';
 
-const SignUpForm = props => {
-    return (
-        <ImageBackground style={styles.imgBackground} source={require('../assets/images/bg.png')}>
-            <View style={styles.container}>
-                <StatusBar backgroundColor='#115E54' />
-                <View style={styles.inputsContainer}>
-                    <TextInput value={props.name} style={styles.inputs} placeholder="Nome" placeholderTextColor='#FFF' onChangeText={text => props.modifyName(text)} />
-                    <TextInput value={props.email} style={styles.inputs} onChangeText={text => props.modifyEmail(text)}
-                        textContentType='emailAddress' placeholder="E-mail" placeholderTextColor='#FFF' keyboardType="email-address" />
-                    <TextInput value={props.password} style={styles.inputs} placeholderTextColor='#FFF' onChangeText={text => props.modifyPassword(text)}
-                        textContentType='password' placeholder="Senha" secureTextEntry={true} />
-                </View>
+class SignUpForm extends Component {
 
-                <Text style={styles.link}
-                    onPress={() => props.navigation.goBack()}
-                >
-                    Já possuo uma conta
+    _createUser() {
+        //pega os valores das props por conta de ter o mesmo nome
+        const userData = { name, email, password } = this.props;
+
+        this.props.createUser(userData);
+    }
+
+    render() {
+        return (
+            <ImageBackground style={styles.imgBackground} source={require('../assets/images/bg.png')}>
+                <View style={styles.container}>
+                    <StatusBar backgroundColor='#115E54' />
+                    <View style={styles.inputsContainer}>
+                        <TextInput value={this.props.name} style={styles.inputs} placeholder="Nome" placeholderTextColor='#FFF' onChangeText={text => this.props.modifyName(text)} />
+                        <TextInput value={this.props.email} style={styles.inputs} onChangeText={text => this.props.modifyEmail(text)}
+                            textContentType='emailAddress' placeholder="E-mail" placeholderTextColor='#FFF' keyboardType="email-address" />
+                        <TextInput value={this.props.password} style={styles.inputs} placeholderTextColor='#FFF' onChangeText={text => this.props.modifyPassword(text)}
+                            textContentType='password' placeholder="Senha" secureTextEntry={true} />
+                    </View>
+
+                    <Text style={styles.link}
+                        onPress={() => this.props.navigation.goBack()}
+                    >
+                        Já possuo uma conta
                 </Text>
 
-                <View style={styles.buttonContainer}>
-                    <Button
-                        buttonStyle={styles.button} onPress={() => false} color='#115E54' title="Cadastrar" />
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            buttonStyle={styles.button} onPress={() => this._createUser()} color='#115E54' title="Cadastrar" />
+                    </View>
                 </View>
-            </View>
-        </ImageBackground>
-    );
+            </ImageBackground>
+        );
+    }
 }
 
 const mapStateToProps = state => {
@@ -41,7 +51,7 @@ const mapStateToProps = state => {
     );
 };
 
-export default connect(mapStateToProps, { modifyEmail, modifyPassword, modifyName })(SignUpForm);
+export default connect(mapStateToProps, { modifyEmail, modifyPassword, modifyName, createUser })(SignUpForm);
 
 const styles = StyleSheet.create({
     imgBackground: {
@@ -62,7 +72,7 @@ const styles = StyleSheet.create({
         height: 45,
     },
     link: {
-        paddingBottom: 25,
+        paddingBottom: 5,
         fontSize: 18,
         color: '#FFF'//'#115E54'
     },
