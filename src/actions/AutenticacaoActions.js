@@ -21,14 +21,24 @@ const modifyName = (text) => {
 }
 const createUser = ({ name, email, password }) => {
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(user => console.log(user))
-        .then(error => console.log(error));
+    return dispatch => {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(user => createUserSuccess(user, dispatch))
+            .catch(error => createUserFailed(error, dispatch));
+    }
+}
 
-    return {
-        type: 'create_user',
-        payload: ''
-    };
+const createUserSuccess = (user, dispatch) => {
+    dispatch({
+        type: 'create_user_success',
+        payload: user
+    });
+}
+const createUserFailed = (error, dispatch) => {
+    dispatch({
+        type: 'create_user_failed',
+        payload: error.message
+    });
 }
 
 export { modifyEmail, modifyPassword, modifyName, createUser };

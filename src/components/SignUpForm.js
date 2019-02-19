@@ -25,6 +25,10 @@ class SignUpForm extends Component {
                             textContentType='password' placeholder="Senha" secureTextEntry={true} />
                     </View>
 
+                    <Text style={styles.error}>
+                        {this.props.siginUpError}
+                    </Text>
+
                     <Text style={styles.link}
                         onPress={() => this.props.navigation.goBack()}
                     >
@@ -47,6 +51,7 @@ const mapStateToProps = state => {
             name: state.AutenticacaoReducer.name,
             email: state.AutenticacaoReducer.email,
             password: state.AutenticacaoReducer.password,
+            siginUpError: state.AutenticacaoReducer.siginUpError,
         }
     );
 };
@@ -82,5 +87,9 @@ const styles = StyleSheet.create({
     },
     button: {
 
+    },
+    error: {
+        fontSize: 20,
+        color: '#ff0000',
     },
 });
